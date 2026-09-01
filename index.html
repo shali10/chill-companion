@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChillTime | 闲暇伴侣 · 下饭番剧与Lo-Fi纯音</title>
+  <title>ChillTime | 闲暇伴侣 · 全景下饭剧集决策 & 原生 Lo-Fi 白噪音</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-main: #F4F7F2;
@@ -16,12 +16,14 @@
       
       /* Vibrant Travel Poster Palette */
       --poster-green: #2EC4B6;
+      --poster-dark-green: #1D7A74;
       --poster-yellow: #FFBF69;
       --poster-orange: #FF9F1C;
       --poster-blue: #3A86FF;
       --poster-purple: #8338EC;
       --poster-rose: #FF006E;
       --poster-light-green: #CBF3F0;
+      --poster-light-yellow: #FEF08A;
       
       --text-main: #0F172A;
       --text-muted: #475569;
@@ -43,11 +45,11 @@
       background-size: 24px 24px;
       color: var(--text-main);
       min-height: 100vh;
-      padding: 28px 20px 48px;
+      padding: 24px 16px 48px;
     }
 
     .container {
-      max-width: 1040px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
@@ -56,12 +58,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       background: var(--card-bg);
       border: 3px solid var(--border-dark);
       border-radius: var(--radius);
       box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
-      padding: 18px 24px;
+      padding: 16px 22px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .brand {
@@ -75,10 +79,11 @@
       color: #fff;
       font-weight: 900;
       padding: 6px 12px;
-      border: 2px solid var(--border-dark);
+      border: 2.5px solid var(--border-dark);
       border-radius: 8px;
       box-shadow: 2px 2px 0 var(--shadow-color);
       font-size: 16px;
+      letter-spacing: 0.5px;
     }
 
     .brand h1 {
@@ -88,7 +93,7 @@
     }
 
     .tagline {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
       font-weight: 700;
     }
@@ -104,20 +109,20 @@
       color: #0F5132;
       font-size: 12px;
       font-weight: 800;
-      padding: 5px 12px;
+      padding: 6px 12px;
       border: 2px solid var(--border-dark);
       border-radius: 20px;
       box-shadow: 2px 2px 0 var(--shadow-color);
     }
 
-    /* Grid Layout */
+    /* Layout Grid */
     .dashboard-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
       gap: 24px;
     }
 
-    @media (max-width: 820px) {
+    @media (max-width: 860px) {
       .dashboard-grid {
         grid-template-columns: 1fr;
       }
@@ -134,7 +139,7 @@
     }
 
     .box-header {
-      padding: 14px 20px;
+      padding: 13px 20px;
       border-bottom: 3px solid var(--border-dark);
       display: flex;
       justify-content: space-between;
@@ -142,12 +147,14 @@
     }
 
     .box-header.green { background: var(--poster-green); color: #fff; }
+    .box-header.dark-green { background: var(--poster-dark-green); color: #fff; }
     .box-header.yellow { background: var(--poster-yellow); color: #1E293B; }
     .box-header.blue { background: var(--poster-blue); color: #fff; }
     .box-header.purple { background: var(--poster-purple); color: #fff; }
+    .box-header.rose { background: var(--poster-rose); color: #fff; }
 
     .box-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 900;
       display: flex;
       align-items: center;
@@ -158,16 +165,72 @@
       padding: 20px;
     }
 
-    /* Anime Wheel / Decision Section */
+    /* Scene Matcher Pills */
+    .scene-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .scene-btn {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      background: #F8FAFC;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--shadow-color);
+      transition: all 0.1s;
+    }
+
+    .scene-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--shadow-color);
+    }
+
+    .scene-btn.active {
+      background: var(--poster-yellow);
+      color: #1E293B;
+      font-weight: 900;
+    }
+
+    /* Filters */
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      background: #FFF;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+
+    .filter-btn.active {
+      background: var(--border-dark);
+      color: #FFF;
+      box-shadow: 2px 2px 0 var(--poster-green);
+    }
+
+    /* Decision Result Card */
     .decision-display {
       background: #F8FAFC;
       border: 2.5px solid var(--border-dark);
       border-radius: 12px;
-      padding: 24px;
+      padding: 24px 20px;
       text-align: center;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
       position: relative;
-      min-height: 180px;
+      min-height: 200px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -187,6 +250,7 @@
       gap: 6px;
       justify-content: center;
       margin-bottom: 12px;
+      flex-wrap: wrap;
     }
 
     .anime-tag-item {
@@ -199,25 +263,55 @@
     }
 
     .anime-desc {
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--text-muted);
-      line-height: 1.5;
-      max-width: 420px;
+      line-height: 1.55;
+      max-width: 440px;
+      margin-bottom: 14px;
     }
 
+    .action-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .link-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border: 1.5px solid var(--border-dark);
+      border-radius: 6px;
+      background: #FFF;
+      text-decoration: none;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.1s;
+      box-shadow: 1px 1px 0 var(--shadow-color);
+    }
+
+    .link-badge:hover {
+      background: var(--poster-light-green);
+      transform: translate(-1px, -1px);
+    }
+
+    /* Buttons */
     .control-row {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       margin-top: 18px;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 12px 20px;
+      padding: 11px 18px;
       border: 2.5px solid var(--border-dark);
       border-radius: 10px;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 13.5px;
       cursor: pointer;
       box-shadow: 3px 3px 0 var(--shadow-color);
       transition: all 0.1s ease;
@@ -240,8 +334,8 @@
     .btn-primary {
       background: var(--poster-orange);
       color: #fff;
-      flex: 1;
-      font-size: 16px;
+      flex: 1.2;
+      font-size: 15px;
     }
 
     .btn-secondary {
@@ -249,64 +343,102 @@
       color: var(--text-main);
     }
 
-    .filter-pills {
+    .btn-fav {
+      background: var(--poster-yellow);
+    }
+
+    /* Custom Watchlist Section */
+    .watchlist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .watchlist-input-row {
       display: flex;
       gap: 8px;
       margin-bottom: 14px;
-      flex-wrap: wrap;
     }
 
-    .filter-btn {
-      font-size: 12px;
-      font-weight: 800;
-      padding: 6px 12px;
+    .custom-input {
+      flex: 1;
+      padding: 9px 12px;
       border: 2px solid var(--border-dark);
       border-radius: 8px;
-      background: #FFF;
+      font-size: 13px;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .watchlist-container {
+      max-height: 180px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+    }
+
+    .watchlist-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      background: #FAFAFA;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .watchlist-item.watched {
+      opacity: 0.55;
+      text-decoration: line-through;
+      background: #F1F5F9;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
       cursor: pointer;
-      transition: all 0.1s;
+      font-size: 14px;
+      padding: 2px 4px;
     }
 
-    .filter-btn.active {
-      background: var(--border-dark);
-      color: #FFF;
-      box-shadow: 2px 2px 0 var(--poster-green);
-    }
-
-    /* Lo-Fi Audio Synth */
+    /* Audio Synth */
     .sound-tracks {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .track-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border: 2px solid var(--border-dark);
       border-radius: 10px;
       background: #FAFAFA;
       box-shadow: 2px 2px 0 var(--shadow-color);
-      gap: 12px;
+      gap: 10px;
     }
 
     .track-info {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       width: 140px;
     }
 
-    .track-icon {
-      font-size: 20px;
-    }
-
-    .track-name {
-      font-size: 13px;
-      font-weight: 800;
-    }
+    .track-icon { font-size: 18px; }
+    .track-name { font-size: 12.5px; font-weight: 800; }
 
     .track-slider-wrap {
       flex: 1;
@@ -341,22 +473,57 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 18px;
+      margin-top: 16px;
       padding-top: 14px;
       border-top: 2px dashed #CBD5E1;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    /* Quick Memo / Notes */
+    /* Breath Guide Widget */
+    .breath-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border: 2px solid var(--border-dark);
+      border-radius: 10px;
+      background: #F0FDF4;
+      margin-top: 16px;
+    }
+
+    .breath-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--poster-green);
+      border: 2px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: #fff;
+      animation: breathPulse 8s infinite ease-in-out;
+      box-shadow: 2px 2px 0 var(--shadow-color);
+    }
+
+    @keyframes breathPulse {
+      0%, 100% { transform: scale(0.85); background: #2EC4B6; }
+      50% { transform: scale(1.18); background: #3A86FF; }
+    }
+
+    /* Memo Area */
     .memo-area {
       width: 100%;
-      height: 110px;
+      height: 90px;
       border: 2px solid var(--border-dark);
       border-radius: 8px;
-      padding: 12px;
+      padding: 10px;
       font-size: 13px;
       font-weight: 600;
       color: var(--text-main);
-      background: #FEF9C3; /* Warm yellow note */
+      background: #FEF9C3;
       box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
       outline: none;
       resize: none;
@@ -367,20 +534,20 @@
       color: var(--text-muted);
       font-weight: 700;
       text-align: right;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
     /* Footer */
     footer {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 24px;
       font-size: 12px;
       font-weight: 700;
       color: var(--text-muted);
     }
 
     .rolling {
-      animation: bounceText 0.15s infinite alternate;
+      animation: bounceText 0.12s infinite alternate;
     }
 
     @keyframes bounceText {
@@ -395,36 +562,51 @@
   <!-- Header -->
   <header>
     <div class="brand">
-      <div class="brand-badge">CHILL</div>
+      <div class="brand-badge">CHILL v2</div>
       <div>
-        <h1>闲暇伴侣 · 决策与纯音</h1>
-        <div class="tagline">下饭番剧决策轮盘 & 原生 Lo-Fi 白噪音合成器</div>
+        <h1>闲暇伴侣 · 全景片单 & 纯音合成</h1>
+        <div class="tagline">40+ 经典神番/神剧决策轮盘 · 自定义片库 · 原生 6 轨 Lo-Fi 合成器</div>
       </div>
     </div>
     <div class="header-status">
-      <span class="pill-tag">✨ 本地无痕模式</span>
+      <span class="pill-tag">✨ 本地无痕 & 离线开箱即用</span>
     </div>
   </header>
 
-  <!-- Dashboard Grid -->
+  <!-- Main Grid -->
   <div class="dashboard-grid">
-    <!-- Left: Anime & Relaxation Selector -->
+    <!-- Left Column: Media Selector & Watchlist -->
     <div>
+      <!-- Selector Box -->
       <div class="box">
         <div class="box-header green">
-          <div class="box-title">🍜 下饭与休闲番剧随机器</div>
-          <span style="font-size: 12px; font-weight: 800; opacity: 0.9;">治愈 · 爆笑 · 智斗</span>
+          <div class="box-title">🍜 全景下饭剧集随机器</div>
+          <span style="font-size: 12px; font-weight: 800; opacity: 0.9;" id="poolCountBadge">收录 40+ 部</span>
         </div>
         <div class="box-body">
-          <div class="filter-pills">
-            <button class="filter-btn active" onclick="setCategory('all', this)">全部收录 (12)</button>
-            <button class="filter-btn" onclick="setCategory('funny', this)">爆笑下饭</button>
-            <button class="filter-btn" onclick="setCategory('healing', this)">治愈惬意</button>
-            <button class="filter-btn" onclick="setCategory('exciting', this)">高能剧情</button>
+          <!-- Scene Fast Matcher -->
+          <div style="font-size: 11.5px; font-weight: 800; color: var(--text-muted); margin-bottom: 6px;">🎯 情景速配模式：</div>
+          <div class="scene-bar">
+            <button class="scene-btn active" onclick="setScene('all', this)">⚡ 任意随缘</button>
+            <button class="scene-btn" onclick="setScene('meal20', this)">🍜 下饭速配 (爆笑20分)</button>
+            <button class="scene-btn" onclick="setScene('sleep', this)">🌙 睡前催眠 (温润治愈)</button>
+            <button class="scene-btn" onclick="setScene('binge', this)">⚔️ 周末通宵 (高能反转)</button>
+            <button class="scene-btn" onclick="setScene('live_drama', this)">📺 国产/经典神剧</button>
           </div>
 
+          <!-- Category Filters -->
+          <div class="filter-pills">
+            <button class="filter-btn active" onclick="setCategory('all', this)">全部 (All)</button>
+            <button class="filter-btn" onclick="setCategory('funny', this)">爆笑下饭</button>
+            <button class="filter-btn" onclick="setCategory('healing', this)">治愈公路</button>
+            <button class="filter-btn" onclick="setCategory('exciting', this)">神作智斗</button>
+            <button class="filter-btn" onclick="setCategory('drama', this)">真人剧集</button>
+            <button class="filter-btn" onclick="setCategory('custom', this)" id="customFilterBtn">⭐ 我的片单 (0)</button>
+          </div>
+
+          <!-- Result Display -->
           <div class="decision-display" id="decisionDisplay">
-            <div id="animeEmoji" style="font-size: 36px; margin-bottom: 6px;">🍳</div>
+            <div id="animeEmoji" style="font-size: 38px; margin-bottom: 6px;">🍳</div>
             <div class="anime-title" id="animeTitle">迷宫饭</div>
             <div class="anime-tags" id="animeTags">
               <span class="anime-tag-item" style="background:#FEF08A;">美食探索</span>
@@ -434,42 +616,57 @@
             <div class="anime-desc" id="animeDesc">
               把地下城魔物做成顶尖料理！设定严谨又笑点密集，一口气看十几集根本停不下来，绝佳下饭神番。
             </div>
+            <div class="action-links" id="actionLinks">
+              <a class="link-badge" id="biliLink" href="https://search.bilibili.com/all?keyword=迷宫饭" target="_blank" rel="noopener">📺 B站搜索</a>
+              <a class="link-badge" id="doubanLink" href="https://www.douban.com/search?q=迷宫饭" target="_blank" rel="noopener">⭐ 豆瓣评分</a>
+              <a class="link-badge" id="googleLink" href="https://www.google.com/search?q=迷宫饭+在线看" target="_blank" rel="noopener">🔍 影视搜索</a>
+            </div>
           </div>
 
+          <!-- Controls -->
           <div class="control-row">
             <button class="btn btn-primary" id="spinBtn" onclick="spinAnime()">
-              <span>🎲 随机抽取一部</span>
+              <span>🎲 随机抽一部</span>
             </button>
             <button class="btn btn-secondary" onclick="copyAnimeShare()">
-              <span>📋 复制番名</span>
+              <span>📋 复制剧名</span>
+            </button>
+            <button class="btn btn-fav" onclick="addToMyListFromCurrent()" title="加入我的片单">
+              <span>⭐ 收藏此部</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Quick Memo -->
+      <!-- Custom Watchlist Manager -->
       <div class="box">
-        <div class="box-header yellow">
-          <div class="box-title">📌 随手灵感与追剧备忘</div>
-          <span style="font-size: 11px; font-weight: 800;">自动存至本地</span>
+        <div class="box-header dark-green">
+          <div class="box-title">📑 我的专属片单与自选库</div>
+          <span style="font-size: 11px; font-weight: 800;">LocalStorage 本地保存</span>
         </div>
         <div class="box-body">
-          <textarea class="memo-area" id="memoInput" placeholder="写下接下来想追的剧、好听的歌，或者今天的闲暇小记..." oninput="saveMemo()"></textarea>
-          <div class="memo-status" id="memoStatus">已实时自动保存</div>
+          <div class="watchlist-input-row">
+            <input type="text" class="custom-input" id="customMediaInput" placeholder="输入你想看或收藏的剧名/番名（如：武林外传）" onkeydown="if(event.key==='Enter')addCustomMedia()">
+            <button class="btn btn-secondary" style="padding:8px 14px;" onclick="addCustomMedia()">➕ 添加</button>
+          </div>
+          <div class="watchlist-container" id="watchlistContainer">
+            <!-- Dynamic Items -->
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Right: Lo-Fi Native Audio Synth -->
+    <!-- Right Column: Lo-Fi Synth & Ambient Sounds -->
     <div>
+      <!-- Lo-Fi Synthesizer Box -->
       <div class="box">
         <div class="box-header purple">
-          <div class="box-title">🎧 原生 Lo-Fi 白噪音合成器</div>
-          <span style="font-size: 11px; font-weight: 800; background:rgba(255,255,255,0.25); padding:2px 8px; border-radius:6px;">Web Audio 零延迟</span>
+          <div class="box-title">🎧 原生 6 轨 Lo-Fi 白噪音合成器</div>
+          <span style="font-size: 11px; font-weight: 800; background:rgba(255,255,255,0.25); padding:2px 8px; border-radius:6px;">Web Audio 芯片级合成</span>
         </div>
         <div class="box-body">
-          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-weight: 600;">
-            无需联网或加载大体积音频，浏览器芯片原生合成白噪音与助眠音律：
+          <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; font-weight: 600;">
+            无需下载或联网加载音频文件，利用声卡底层振荡器原生实时生成：
           </p>
 
           <div class="sound-tracks">
@@ -497,6 +694,18 @@
               </div>
             </div>
 
+            <!-- Ocean Waves -->
+            <div class="track-card">
+              <div class="track-info">
+                <span class="track-icon">🌊</span>
+                <span class="track-name">海浪潮汐 (Ocean)</span>
+              </div>
+              <div class="track-slider-wrap">
+                <input type="range" id="volOcean" min="0" max="100" value="0" oninput="updateSound('ocean', this.value)">
+                <span style="font-size: 12px; font-weight: 800; width: 32px;" id="valOcean">0%</span>
+              </div>
+            </div>
+
             <!-- Summer Breeze -->
             <div class="track-card">
               <div class="track-info">
@@ -509,11 +718,23 @@
               </div>
             </div>
 
-            <!-- Pink Noise / Cafe -->
+            <!-- Summer Night Cicadas -->
+            <div class="track-card">
+              <div class="track-info">
+                <span class="track-icon">🦗</span>
+                <span class="track-name">夏夜微鸣 (Night)</span>
+              </div>
+              <div class="track-slider-wrap">
+                <input type="range" id="volNight" min="0" max="100" value="0" oninput="updateSound('night', this.value)">
+                <span style="font-size: 12px; font-weight: 800; width: 32px;" id="valNight">0%</span>
+              </div>
+            </div>
+
+            <!-- Cafe Ambience -->
             <div class="track-card">
               <div class="track-info">
                 <span class="track-icon">☕</span>
-                <span class="track-name">咖啡馆粉噪 (Cafe)</span>
+                <span class="track-name">街角咖啡馆 (Cafe)</span>
               </div>
               <div class="track-slider-wrap">
                 <input type="range" id="volCafe" min="0" max="100" value="0" oninput="updateSound('cafe', this.value)">
@@ -522,67 +743,171 @@
             </div>
           </div>
 
+          <!-- Presets -->
           <div class="master-sound-bar">
-            <div style="display:flex; gap:8px;">
-              <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="presetMix('study')">📖 专注模式</button>
-              <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="presetMix('sleep')">🌙 助眠模式</button>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button class="btn btn-secondary" style="padding:5px 10px; font-size:11.5px;" onclick="presetMix('study')">📖 专注码字</button>
+              <button class="btn btn-secondary" style="padding:5px 10px; font-size:11.5px;" onclick="presetMix('sleep')">🌙 深度助眠</button>
+              <button class="btn btn-secondary" style="padding:5px 10px; font-size:11.5px;" onclick="presetMix('cozy')">☕ 舒适咖啡</button>
             </div>
-            <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px; background:#FEE2E2; color:#991B1B;" onclick="muteAll()">🔇 全部静音</button>
+            <button class="btn btn-secondary" style="padding:5px 10px; font-size:11.5px; background:#FEE2E2; color:#991B1B;" onclick="muteAll()">🔇 一键静音</button>
+          </div>
+
+          <!-- Breath Guide Widget -->
+          <div class="breath-box">
+            <div>
+              <div style="font-size:13px; font-weight:800; color:#14532D;">🌿 4-4-4 放松深呼吸</div>
+              <div style="font-size:11px; font-weight:700; color:#166534; margin-top:2px;">跟随光晕：吸气 · 屏息 · 呼气</div>
+            </div>
+            <div class="breath-circle">呼 / 吸</div>
           </div>
         </div>
       </div>
 
-      <!-- Quick Tips Box -->
+      <!-- Quick Memo -->
       <div class="box">
-        <div class="box-header blue">
-          <div class="box-title">💡 休闲小贴士</div>
+        <div class="box-header yellow">
+          <div class="box-title">📌 随手闲暇灵感记</div>
+          <span style="font-size: 11px; font-weight: 800;">自动存盘</span>
         </div>
-        <div class="box-body" style="font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 600;">
-          • 下饭首选：《迷宫饭》《男子高中生的日常》<br>
-          • 治愈身心：《摇曳露营》《葬送的芙莉莲》<br>
-          • 纯音模式配合头戴式耳机效果更佳，随时关闭随时静默。
+        <div class="box-body">
+          <textarea class="memo-area" id="memoInput" placeholder="写下你想追的剧、好听的歌，或者今天的闲暇小记..." oninput="saveMemo()"></textarea>
+          <div class="memo-status" id="memoStatus">已实时自动保存</div>
         </div>
       </div>
     </div>
   </div>
 
   <footer>
-    ChillTime · 极简高饱和旅行插画风前端玩具 · 离线开箱即用
+    ChillTime v2.0 · 高饱和旅行插画风闲暇伴侣 · Cloudflare Pages 边缘托管 · 零网络外部依赖
   </footer>
 </div>
 
 <script>
-  // Anime Database
-  const animeList = [
-    { name: "迷宫饭", category: "funny", emoji: "🍳", tags: ["美食探索", "搞笑治愈", "脑洞"], desc: "把地下城魔物做成顶尖料理！设定严谨又笑点密集，一口气看十几集停不下来。" },
-    { name: "葬送的芙莉莲", category: "healing", emoji: "✨", tags: ["公路旅行", "细腻温情", "封神配乐"], desc: "千岁精灵重走勇者之路，时间长河里的细碎温情，后劲极强且画面顶级。" },
-    { name: "男子高中生的日常", category: "funny", emoji: "🍂", tags: ["无厘头", "满分吐槽", "青春下饭"], desc: "今天的风儿甚是喧嚣！男高的日常脑洞与极速吐槽，每一秒都是高能名场面。" },
-    { name: "间谍过家家", category: "funny", emoji: "🥜", tags: ["读心萌娃", "家庭喜剧", "轻松温馨"], desc: "特工爸爸 + 杀手妈妈 + 读心女儿阿尼亚的爆笑伪装日常，颜艺与温馨兼备。" },
-    { name: "摇曳露营△", category: "healing", emoji: "⛺", tags: ["户外露营", "温暖治愈", "究极放松"], desc: "富士山下的暖炉、热拉面与野营美景，工作一天后最舒服的心灵按摩番。" },
+  // Expanded Database: 40+ Curated Anime & Dramas
+  const fullMediaList = [
+    // 爆笑下饭动漫 (funny)
+    { name: "迷宫饭", category: "funny", emoji: "🍳", tags: ["美食探索", "搞笑治愈", "脑洞"], desc: "把地下城魔物做成顶尖料理！设定严谨又笑点密集，一口气看十几集根本停不下来，绝佳下饭神番。" },
+    { name: "男子高中生的日常", category: "funny", emoji: "🍂", tags: ["无厘头", "满分吐槽", "青春下饭"], desc: "今天的风儿甚是喧嚣！男高的日常脑洞与极速吐槽，每一秒都是高能名场面，下饭必看。" },
     { name: "齐木楠雄的灾难", category: "funny", emoji: "☕", tags: ["超能力者", "超速吐槽", "爆笑神作"], desc: "只想当普通人的超能力高中生，却被一帮活宝同学天天找麻烦，语速极快笑料拉满。" },
-    { name: "孤独摇滚！", category: "healing", emoji: "🎸", tags: ["社恐少女", "热血乐队", "神仙作画"], desc: "社恐后藤一里的吉他英雄蜕变记，真实细腻又充满奇葩脑洞的青春摇滚喜剧。" },
+    { name: "间谍过家家", category: "funny", emoji: "🥜", tags: ["读心萌娃", "家庭喜剧", "轻松温馨"], desc: "特工爸爸 + 杀手妈妈 + 读心女儿阿尼亚的爆笑伪装日常，颜艺与温馨兼备。" },
     { name: "日常 (Nichijou)", category: "funny", emoji: "🦌", tags: ["京阿尼", "神仙分镜", "脑洞爆炸"], desc: "校长摔跤斗鹿、三文鱼从天而降，荒诞艺术的最高境界，京阿尼作画巅峰。" },
     { name: "坂本大佬有何贵干", category: "funny", emoji: "🕶️", tags: ["极致装逼", "优雅搞笑", "下饭必备"], desc: "无论遇到什么状况都能优雅装逼化解，逼格满满的爆笑校园番。" },
+    { name: "辉夜大小姐想让我告白", category: "funny", emoji: "❤️", tags: ["恋爱智斗", "高能颜艺", "顶级制作"], desc: "傲娇天才们的恋爱头脑战！书记舞、真妃被迫害，搞笑与浪漫完美融合。" },
+    { name: "碧蓝之海", category: "funny", emoji: "🍻", tags: ["潜水(确信)", "硬核颜艺", "爆笑大学"], desc: "这真的是一部正经的“潜水”番！大学社团的狂欢、可燃乌龙茶，笑到腹肌抽搐。" },
+    { name: "极主夫道", category: "funny", emoji: "🔪", tags: ["黑帮硬汉", "家庭煮夫", "反差爆笑"], desc: "曾经的不死之龙黑帮大哥，转型成为全职家庭煮夫，买菜做饭也能拍出黑帮火拼感！" },
+    { name: "游戏三人娘", category: "funny", emoji: "🎮", tags: ["神仙颜艺", "欺诈OP", "爆笑互坑"], desc: "OP欺诈巅峰！外表美少女，内心全是抽象暴躁颜艺狂魔，绝对笑出眼泪。" },
+    { name: "小林家的龙女仆", category: "funny", emoji: "🐉", tags: ["京阿尼", "温馨搞笑", "龙女仆"], desc: "程序员小林与一群可爱的龙龙室友的同居温馨日常，画风可爱打斗顶配。" },
+    { name: "月刊少女野崎君", category: "funny", emoji: "🎀", tags: ["少女漫画", "直男迟钝", "爆笑误会"], desc: "少女心爆棚的硬核直男漫画家野崎君，经典千代表情包发源地，百看不厌。" },
+
+    // 治愈与公路片 (healing)
+    { name: "葬送的芙莉莲", category: "healing", emoji: "✨", tags: ["公路旅行", "细腻温情", "封神配乐"], desc: "千岁精灵重走勇者之路，时间长河里的细碎温情与记忆，后劲极强且画面顶级。" },
+    { name: "摇曳露营△", category: "healing", emoji: "⛺", tags: ["户外露营", "温暖治愈", "究极放松"], desc: "富士山下的暖炉、热拉面与野营美景，工作一天后最舒服的心灵按摩番。" },
     { name: "夏目友人帐", category: "healing", emoji: "🐱", tags: ["人妖温情", "唯美治愈", "猫咪老师"], desc: "温柔的少年与可爱的妖怪们，每一集都如同一首舒缓动听的散文诗。" },
+    { name: "孤独摇滚！", category: "healing", emoji: "🎸", tags: ["社恐少女", "热血乐队", "神仙作画"], desc: "社恐后藤一里的吉他英雄蜕变记，真实细腻又充满奇葩脑洞的青春摇滚喜剧。" },
+    { name: "白箱 (SHIROBAKO)", category: "healing", emoji: "🎬", tags: ["职场真实", "动画制作", "励志感动"], desc: "真实的动画业界群像剧，描绘为了梦想奋力前行的职场人，看完充满力量。" },
+    { name: "紫罗兰永恒花园", category: "healing", emoji: "💌", tags: ["自动手记", "京阿尼作画", "感人至深"], desc: "寻找“爱”的真正含义，第十集泪崩神作，壁纸级别的极致画面与管弦乐。" },
+    { name: "强风吹拂", category: "healing", emoji: "🎽", tags: ["箱根驿传", "跑步群像", "热血治愈"], desc: "宽政大学十人挑战箱根驿传，每个人都在奔跑中寻找与自己的和解，感动落泪。" },
+    { name: "比宇宙更远的地方", category: "healing", emoji: "🐧", tags: ["南极挑战", "青春冒险", "豆瓣9.3"], desc: "四位少女跨越半个地球前往南极大陆，青春就该去看看未知的世界，满分神作！" },
+    { name: "虫师", category: "healing", emoji: "🌿", tags: ["空灵幽远", "东方物语", "禅意哲思"], desc: "银古游历四方探寻生命的本质，每一话都是淡雅幽远的东方自然画卷。" },
+    { name: "CLANNAD", category: "healing", emoji: "🍡", tags: ["人生神作", "感动泪目", "家族温情"], desc: "写作 CLANNAD，读作人生。探讨成长、责任与家庭，动漫史上不可逾越的经典。" },
+
+    // 神作与高能剧情 (exciting)
     { name: "死亡笔记", category: "exciting", emoji: "🍎", tags: ["顶级智斗", "悬疑高能", "节奏紧凑"], desc: "夜神月与 L 的世纪天才心理对决，剧情层层反转，紧张到手心出汗。" },
-    { name: "排球少年！！", category: "exciting", emoji: "🏐", tags: ["纯粹热血", "群像巅峰", "无超能力"], desc: "没有超能力、没有反派，只有纯粹热血与汗水的青春，每一场比赛都燃到起飞！" }
+    { name: "进击的巨人", category: "exciting", emoji: "⚔️", tags: ["史诗叙事", "伏笔封神", "宏大格局"], desc: "人类与巨人的百年争斗，层层揭开世界真相，配乐与伏笔回收封神。" },
+    { name: "灵能百分百", category: "exciting", emoji: "🧂", tags: ["骨头社", "顶配打斗", "成长哲理"], desc: "龙套影山茂夫的超能力与青春烦恼，骨头社作画天花板，师徒情谊感人至深。" },
+    { name: "一拳超人 (第一季)", category: "exciting", emoji: "🥊", tags: ["无敌埼玉", "MADHOUSE", "极致爽番"], desc: "没有什么怪人是一拳解决不了的！如果有，那就认真一拳，作画爽快爆表。" },
+    { name: "钢之炼金术师FA", category: "exciting", emoji: "🦾", tags: ["零差评", "完美结局", "等价交换"], desc: "全球各大榜单霸榜第一的无可挑剔神作，逻辑严密、群像鲜明、结局圆满。" },
+    { name: "排球少年！！", category: "exciting", emoji: "🏐", tags: ["纯粹热血", "群像巅峰", "无超能力"], desc: "没有超能力、没有反派，只有纯粹热血与汗水的青春，每一场比赛都燃到起飞！" },
+    { name: "命运石之门", category: "exciting", emoji: "🔬", tags: ["世界线收束", "硬核科幻", "神级反转"], desc: "这一切都是命运石之门的选择！慢热但从第12集开始极速高能，神回不断。" },
+    { name: "咒术回战", category: "exciting", emoji: "🤞", tags: ["领域展开", "顶配打戏", "MAPPA"], desc: "五条悟颜值与战力天花板，涉谷事变高能连环爆发，动作分镜张力十足。" },
+    { name: "鬼灭之刃", category: "exciting", emoji: "🌊", tags: ["飞碟社", "呼吸法", "游郭大战"], desc: "ufotable 顶级光影与粒子特效，无限列车与游郭篇打斗燃炸全场。" },
+
+    // 经典下饭真人神剧 (drama)
+    { name: "武林外传", category: "drama", emoji: "🍶", tags: ["同福客栈", "国民喜剧", "百看不厌"], desc: "“这世界有太多不如意，但你的生活还是要继续。” 佟掌柜、老白、秀才郭芙蓉，中国情景喜剧巅峰。" },
+    { name: "生活大爆炸 (The Big Bang Theory)", category: "drama", emoji: "⚛️", tags: ["谢耳朵", "Geek爆笑", "下饭常客"], desc: "天才物理学家们的硬核宅男日常，Sheldon 的经典怪癖与温情陪伴，陪你吃完无数顿饭。" },
+    { name: "摩登家庭 (Modern Family)", category: "drama", emoji: "🏡", tags: ["伪纪录片", "笑泪齐飞", "温馨家庭"], desc: "三组不同背景的家庭日常生活，笑料密集到停不下来，结尾又总能暖进心坎。" },
+    { name: "请回答1988", category: "drama", emoji: "📻", tags: ["双门洞", "神仙邻里", "治愈催泪"], desc: "胡同里的柴米油盐与青春悸动，狗善、阿泽、德善，后劲巨大的人间烟火气。" },
+    { name: "孤独的美食家", category: "drama", emoji: "🥩", tags: ["井之头五郎", "日本街巷", "沉浸干饭"], desc: "不被时间与社会所束缚，幸福地填饱肚子！五郎叔的大叔吃相绝对是下饭神器。" },
+    { name: "父母爱情", category: "drama", emoji: "🌸", tags: ["温情岁月", "细水长流", "百看不厌"], desc: "江德福与安杰相濡以沫的一生，生活化对白极其自然生动，最适合全家一起看。" },
+    { name: "家有儿女", category: "drama", emoji: "🍦", tags: ["刘星名场面", "童年回忆", "轻松爆笑"], desc: "刘星下饭名场面大赏！重温小时候最纯粹的无厘头家庭快乐。" },
+    { name: "IT狂人 (The IT Crowd)", category: "drama", emoji: "💻", tags: ["英式幽默", "极客无厘头", "满分神剧"], desc: "“Have you tried turning it off and on again?” 程序员与 IT 部门的经典荒诞英剧。" }
   ];
 
   let currentCategory = 'all';
+  let currentScene = 'all';
+  let customList = [];
+
+  // Initialize
+  window.addEventListener('DOMContentLoaded', () => {
+    loadCustomList();
+    loadMemo();
+    updatePoolBadge();
+    renderWatchlist();
+  });
+
+  function updatePoolBadge() {
+    const customCount = customList.length;
+    document.getElementById('customFilterBtn').innerText = `⭐ 我的片单 (${customCount})`;
+    const count = getFilteredList().length;
+    document.getElementById('poolCountBadge').innerText = `当前片库 ${count} 部`;
+  }
+
+  function setScene(scene, btn) {
+    currentScene = scene;
+    document.querySelectorAll('.scene-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Auto map scene to category
+    if (scene === 'meal20') {
+      setCategory('funny', document.querySelectorAll('.filter-btn')[1]);
+    } else if (scene === 'sleep') {
+      setCategory('healing', document.querySelectorAll('.filter-btn')[2]);
+    } else if (scene === 'binge') {
+      setCategory('exciting', document.querySelectorAll('.filter-btn')[3]);
+    } else if (scene === 'live_drama') {
+      setCategory('drama', document.querySelectorAll('.filter-btn')[4]);
+    } else {
+      setCategory('all', document.querySelectorAll('.filter-btn')[0]);
+    }
+  }
 
   function setCategory(cat, btn) {
     currentCategory = cat;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
+    updatePoolBadge();
     spinAnime();
   }
 
+  function getFilteredList() {
+    if (currentCategory === 'custom') {
+      return customList.map(item => ({
+        name: item.name,
+        category: 'custom',
+        emoji: '⭐',
+        tags: ["我的自选", item.watched ? "已看过" : "想看"],
+        desc: "你自己收录的专属追剧片单，随时准备开看！"
+      }));
+    }
+
+    let list = fullMediaList;
+    if (currentCategory !== 'all') {
+      list = list.filter(a => a.category === currentCategory);
+    }
+    return list;
+  }
+
   function spinAnime() {
-    const filtered = currentCategory === 'all' 
-      ? animeList 
-      : animeList.filter(a => a.category === currentCategory);
-    
-    if (!filtered.length) return;
+    const list = getFilteredList();
+    if (!list.length) {
+      document.getElementById('animeTitle').innerText = "暂无条目";
+      document.getElementById('animeDesc').innerText = "片库或自定义列表为空，可以切换筛选或在下方添加你的自选！";
+      document.getElementById('animeTags').innerHTML = "";
+      return;
+    }
+
+    playTickSound();
 
     const titleEl = document.getElementById('animeTitle');
     const descEl = document.getElementById('animeDesc');
@@ -595,56 +920,138 @@
 
     let counter = 0;
     const interval = setInterval(() => {
-      const temp = filtered[Math.floor(Math.random() * filtered.length)];
+      const temp = list[Math.floor(Math.random() * list.length)];
       titleEl.innerText = temp.name;
       emojiEl.innerText = temp.emoji;
       counter++;
       if (counter > 8) {
         clearInterval(interval);
-        const finalPick = filtered[Math.floor(Math.random() * filtered.length)];
+        const finalPick = list[Math.floor(Math.random() * list.length)];
         titleEl.innerText = finalPick.name;
         titleEl.classList.remove('rolling');
         emojiEl.innerText = finalPick.emoji;
         descEl.innerText = finalPick.desc;
         
         tagsEl.innerHTML = finalPick.tags.map((t, idx) => {
-          const colors = ['#FEF08A', '#BBF7D0', '#FED7AA', '#E9D5FF', '#BAE6FD'];
+          const colors = ['#FEF08A', '#BBF7D0', '#FED7AA', '#E9D5FF', '#BAE6FD', '#FBCFE8'];
           return `<span class="anime-tag-item" style="background:${colors[idx % colors.length]};">${t}</span>`;
         }).join('');
 
+        updateActionLinks(finalPick.name);
+        playWinSound();
         spinBtn.disabled = false;
       }
-    }, 60);
+    }, 55);
+  }
+
+  function updateActionLinks(title) {
+    const encoded = encodeURIComponent(title);
+    document.getElementById('biliLink').href = `https://search.bilibili.com/all?keyword=${encoded}`;
+    document.getElementById('doubanLink').href = `https://www.douban.com/search?q=${encoded}`;
+    document.getElementById('googleLink').href = `https://www.google.com/search?q=${encoded}+在线看`;
   }
 
   function copyAnimeShare() {
     const name = document.getElementById('animeTitle').innerText;
     navigator.clipboard.writeText(`《${name}》`).then(() => {
-      alert(`已复制番剧名：《${name}》`);
+      alert(`已复制剧名：《${name}》`);
     });
   }
 
+  function addToMyListFromCurrent() {
+    const title = document.getElementById('animeTitle').innerText;
+    if (title && title !== "暂无条目") {
+      addCustomMediaItem(title);
+    }
+  }
+
+  // Custom Watchlist Logic
+  function loadCustomList() {
+    try {
+      const data = localStorage.getItem('chill-user-watchlist');
+      customList = data ? JSON.parse(data) : [
+        { name: "武林外传", watched: false },
+        { name: "葬送的芙莉莲", watched: true }
+      ];
+    } catch(e) {
+      customList = [];
+    }
+  }
+
+  function saveCustomList() {
+    localStorage.setItem('chill-user-watchlist', JSON.stringify(customList));
+    updatePoolBadge();
+    renderWatchlist();
+  }
+
+  function addCustomMedia() {
+    const input = document.getElementById('customMediaInput');
+    const val = input.value.trim();
+    if (!val) return;
+    addCustomMediaItem(val);
+    input.value = "";
+  }
+
+  function addCustomMediaItem(name) {
+    if (customList.some(item => item.name === name)) {
+      alert(`《${name}》已在你的片单中！`);
+      return;
+    }
+    customList.unshift({ name: name, watched: false });
+    saveCustomList();
+    alert(`已将《${name}》添加至我的片单！`);
+  }
+
+  function toggleWatchStatus(idx) {
+    customList[idx].watched = !customList[idx].watched;
+    saveCustomList();
+  }
+
+  function deleteWatchItem(idx) {
+    customList.splice(idx, 1);
+    saveCustomList();
+  }
+
+  function renderWatchlist() {
+    const box = document.getElementById('watchlistContainer');
+    if (!customList.length) {
+      box.innerHTML = `<div style="font-size:12.5px;color:var(--text-muted);padding:10px;text-align:center;">片单还是空的，在上方输入或点击“收藏此部”添加吧～</div>`;
+      return;
+    }
+
+    box.innerHTML = customList.map((item, idx) => `
+      <div class="watchlist-item ${item.watched ? 'watched' : ''}">
+        <span>${item.watched ? '✅' : '📌'} ${item.name}</span>
+        <div class="item-actions">
+          <button class="icon-btn" onclick="toggleWatchStatus(${idx})" title="${item.watched ? '标记为未看' : '标记为已看'}">
+            ${item.watched ? '↩️' : '✔️'}
+          </button>
+          <button class="icon-btn" onclick="deleteWatchItem(${idx})" title="删除">🗑️</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
   // Local Memo Management
+  function loadMemo() {
+    const saved = localStorage.getItem('chill-user-memo');
+    if (saved) document.getElementById('memoInput').value = saved;
+  }
+
   function saveMemo() {
     const text = document.getElementById('memoInput').value;
     localStorage.setItem('chill-user-memo', text);
-    const statusEl = document.getElementById('memoStatus');
-    statusEl.innerText = "已于 " + new Date().toLocaleTimeString() + " 自动保存";
+    document.getElementById('memoStatus').innerText = "已于 " + new Date().toLocaleTimeString() + " 自动保存";
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('chill-user-memo');
-    if (saved) {
-      document.getElementById('memoInput').value = saved;
-    }
-  });
-
-  // Web Audio Native Synthesizer
+  // Web Audio Native Synthesizer (6 Tracks + SFX)
   let audioCtx = null;
   const nodes = {
     rain: null,
     fire: null,
+    ocean: null,
     wind: null,
+    night: null,
     cafe: null
   };
 
@@ -657,33 +1064,59 @@
     }
   }
 
-  // Generate White Noise Buffer
-  function createWhiteNoiseBuffer(seconds = 5) {
-    const bufferSize = audioCtx.sampleRate * seconds;
-    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
-    }
-    return buffer;
+  function playTickSound() {
+    try {
+      initAudioContext();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.05);
+    } catch(e){}
   }
 
-  // Generate Pink Noise Buffer (Softer)
-  function createPinkNoiseBuffer(seconds = 5) {
+  function playWinSound() {
+    try {
+      initAudioContext();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+      osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.12); // A5
+      gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.26);
+    } catch(e){}
+  }
+
+  function createNoiseBuffer(type = 'white', seconds = 5) {
     const bufferSize = audioCtx.sampleRate * seconds;
     const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
     const data = buffer.getChannelData(0);
-    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-    for (let i = 0; i < bufferSize; i++) {
-      const white = Math.random() * 2 - 1;
-      b0 = 0.99886 * b0 + white * 0.0555179;
-      b1 = 0.99332 * b1 + white * 0.0750759;
-      b2 = 0.96900 * b2 + white * 0.1538520;
-      b3 = 0.86650 * b3 + white * 0.3104856;
-      b4 = 0.55000 * b4 + white * 0.5329522;
-      b5 = -0.7616 * b5 - white * 0.0168980;
-      data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
-      b6 = white * 0.115926;
+
+    if (type === 'white') {
+      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+    } else { // Pink Noise
+      let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+        b6 = white * 0.115926;
+      }
     }
     return buffer;
   }
@@ -697,7 +1130,7 @@
 
     if (type === 'rain') {
       const src = audioCtx.createBufferSource();
-      src.buffer = createPinkNoiseBuffer(6);
+      src.buffer = createNoiseBuffer('pink', 6);
       src.loop = true;
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'lowpass';
@@ -705,34 +1138,65 @@
       src.connect(filter);
       filter.connect(gainNode);
       src.start();
-    } else if (type === 'wind') {
-      const src = audioCtx.createBufferSource();
-      src.buffer = createPinkNoiseBuffer(6);
-      src.loop = true;
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.value = 450;
-      filter.Q.value = 3.0;
-      src.connect(filter);
-      filter.connect(gainNode);
-      src.start();
     } else if (type === 'fire') {
       const src = audioCtx.createBufferSource();
-      src.buffer = createWhiteNoiseBuffer(4);
+      src.buffer = createNoiseBuffer('white', 4);
       src.loop = true;
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.value = 600;
+      filter.frequency.value = 550;
+      src.connect(filter);
+      filter.connect(gainNode);
+      src.start();
+    } else if (type === 'ocean') {
+      const src = audioCtx.createBufferSource();
+      src.buffer = createNoiseBuffer('pink', 8);
+      src.loop = true;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 350;
+      
+      // Auto LFO for ocean wave swell
+      const lfo = audioCtx.createOscillator();
+      const lfoGain = audioCtx.createGain();
+      lfo.frequency.value = 0.15; // 6.6s per wave
+      lfoGain.gain.value = 250;
+      lfo.connect(filter.frequency);
+      lfo.start();
+
+      src.connect(filter);
+      filter.connect(gainNode);
+      src.start();
+    } else if (type === 'wind') {
+      const src = audioCtx.createBufferSource();
+      src.buffer = createNoiseBuffer('pink', 6);
+      src.loop = true;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 420;
+      filter.Q.value = 3.2;
+      src.connect(filter);
+      filter.connect(gainNode);
+      src.start();
+    } else if (type === 'night') {
+      // Gentle cicada frequency resonance
+      const src = audioCtx.createBufferSource();
+      src.buffer = createNoiseBuffer('white', 4);
+      src.loop = true;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 4500;
+      filter.Q.value = 8.0;
       src.connect(filter);
       filter.connect(gainNode);
       src.start();
     } else if (type === 'cafe') {
       const src = audioCtx.createBufferSource();
-      src.buffer = createPinkNoiseBuffer(5);
+      src.buffer = createNoiseBuffer('pink', 5);
       src.loop = true;
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.value = 400;
+      filter.frequency.value = 380;
       src.connect(filter);
       filter.connect(gainNode);
       src.start();
@@ -748,7 +1212,7 @@
     const volume = parseFloat(val) / 100;
     gain.gain.setTargetAtTime(volume * 0.7, audioCtx.currentTime, 0.05);
 
-    const map = { rain: 'valRain', fire: 'valFire', wind: 'valWind', cafe: 'valCafe' };
+    const map = { rain: 'valRain', fire: 'valFire', ocean: 'valOcean', wind: 'valWind', night: 'valNight', cafe: 'valCafe' };
     if (map[type]) {
       document.getElementById(map[type]).innerText = val + '%';
     }
@@ -756,16 +1220,19 @@
 
   function presetMix(mode) {
     initAudioContext();
+    muteAll();
     if (mode === 'study') {
-      setSlider('volRain', 45, 'rain');
+      setSlider('volRain', 40, 'rain');
       setSlider('volWind', 20, 'wind');
       setSlider('volCafe', 25, 'cafe');
-      setSlider('volFire', 0, 'fire');
     } else if (mode === 'sleep') {
-      setSlider('volRain', 60, 'rain');
+      setSlider('volOcean', 50, 'ocean');
+      setSlider('volRain', 40, 'rain');
+      setSlider('volFire', 20, 'fire');
+    } else if (mode === 'cozy') {
+      setSlider('volCafe', 45, 'cafe');
       setSlider('volFire', 30, 'fire');
-      setSlider('volWind', 0, 'wind');
-      setSlider('volCafe', 0, 'cafe');
+      setSlider('volNight', 15, 'night');
     }
   }
 
@@ -775,10 +1242,11 @@
   }
 
   function muteAll() {
-    setSlider('volRain', 0, 'rain');
-    setSlider('volFire', 0, 'fire');
-    setSlider('volWind', 0, 'wind');
-    setSlider('volCafe', 0, 'cafe');
+    ['volRain', 'volFire', 'volOcean', 'volWind', 'volNight', 'volCafe'].forEach(id => {
+      const type = id.replace('vol', '').toLowerCase();
+      document.getElementById(id).value = 0;
+      updateSound(type, 0);
+    });
   }
 </script>
 </body>
