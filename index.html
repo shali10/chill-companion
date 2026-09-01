@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChillTime | 闲暇伴侣 · 下饭番剧与Lo-Fi纯音</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #F4F7F2;
+      --card-bg: #FFFFFF;
+      --border-dark: #1E293B;
+      --shadow-color: #1E293B;
+      
+      /* Vibrant Travel Poster Palette */
+      --poster-green: #2EC4B6;
+      --poster-yellow: #FFBF69;
+      --poster-orange: #FF9F1C;
+      --poster-blue: #3A86FF;
+      --poster-purple: #8338EC;
+      --poster-rose: #FF006E;
+      --poster-light-green: #CBF3F0;
+      
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      
+      --shadow-offset: 4px;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 28px 20px 48px;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      background: var(--card-bg);
+      border: 3px solid var(--border-dark);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+      padding: 18px 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: var(--poster-orange);
+      color: #fff;
+      font-weight: 900;
+      padding: 6px 12px;
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      box-shadow: 2px 2px 0 var(--shadow-color);
+      font-size: 16px;
+    }
+
+    .brand h1 {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .header-status {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill-tag {
+      background: var(--poster-light-green);
+      color: #0F5132;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border: 2px solid var(--border-dark);
+      border-radius: 20px;
+      box-shadow: 2px 2px 0 var(--shadow-color);
+    }
+
+    /* Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 820px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Box / Card Styling */
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border-dark);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .box-header {
+      padding: 14px 20px;
+      border-bottom: 3px solid var(--border-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .box-header.green { background: var(--poster-green); color: #fff; }
+    .box-header.yellow { background: var(--poster-yellow); color: #1E293B; }
+    .box-header.blue { background: var(--poster-blue); color: #fff; }
+    .box-header.purple { background: var(--poster-purple); color: #fff; }
+
+    .box-title {
+      font-size: 16px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .box-body {
+      padding: 20px;
+    }
+
+    /* Anime Wheel / Decision Section */
+    .decision-display {
+      background: #F8FAFC;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .anime-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .anime-tags {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .anime-tag-item {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border-dark);
+      background: #fff;
+    }
+
+    .anime-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 420px;
+    }
+
+    .control-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: 2.5px solid var(--border-dark);
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--shadow-color);
+      transition: all 0.1s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--shadow-color);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--shadow-color);
+    }
+
+    .btn-primary {
+      background: var(--poster-orange);
+      color: #fff;
+      flex: 1;
+      font-size: 16px;
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--text-main);
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      background: #FFF;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+
+    .filter-btn.active {
+      background: var(--border-dark);
+      color: #FFF;
+      box-shadow: 2px 2px 0 var(--poster-green);
+    }
+
+    /* Lo-Fi Audio Synth */
+    .sound-tracks {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .track-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border: 2px solid var(--border-dark);
+      border-radius: 10px;
+      background: #FAFAFA;
+      box-shadow: 2px 2px 0 var(--shadow-color);
+      gap: 12px;
+    }
+
+    .track-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 140px;
+    }
+
+    .track-icon {
+      font-size: 20px;
+    }
+
+    .track-name {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .track-slider-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: #E2E8F0;
+      height: 8px;
+      border-radius: 4px;
+      border: 1.5px solid var(--border-dark);
+      outline: none;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--poster-purple);
+      border: 2px solid var(--border-dark);
+      cursor: pointer;
+      box-shadow: 1px 1px 0 var(--shadow-color);
+    }
+
+    .master-sound-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 2px dashed #CBD5E1;
+    }
+
+    /* Quick Memo / Notes */
+    .memo-area {
+      width: 100%;
+      height: 110px;
+      border: 2px solid var(--border-dark);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: #FEF9C3; /* Warm yellow note */
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
+      outline: none;
+      resize: none;
+    }
+
+    .memo-status {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-align: right;
+      margin-top: 6px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .rolling {
+      animation: bounceText 0.15s infinite alternate;
+    }
+
+    @keyframes bounceText {
+      from { transform: translateY(-2px) scale(0.98); }
+      to { transform: translateY(2px) scale(1.02); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-badge">CHILL</div>
+      <div>
+        <h1>闲暇伴侣 · 决策与纯音</h1>
+        <div class="tagline">下饭番剧决策轮盘 & 原生 Lo-Fi 白噪音合成器</div>
+      </div>
+    </div>
+    <div class="header-status">
+      <span class="pill-tag">✨ 本地无痕模式</span>
+    </div>
+  </header>
+
+  <!-- Dashboard Grid -->
+  <div class="dashboard-grid">
+    <!-- Left: Anime & Relaxation Selector -->
+    <div>
+      <div class="box">
+        <div class="box-header green">
+          <div class="box-title">🍜 下饭与休闲番剧随机器</div>
+          <span style="font-size: 12px; font-weight: 800; opacity: 0.9;">治愈 · 爆笑 · 智斗</span>
+        </div>
+        <div class="box-body">
+          <div class="filter-pills">
+            <button class="filter-btn active" onclick="setCategory('all', this)">全部收录 (12)</button>
+            <button class="filter-btn" onclick="setCategory('funny', this)">爆笑下饭</button>
+            <button class="filter-btn" onclick="setCategory('healing', this)">治愈惬意</button>
+            <button class="filter-btn" onclick="setCategory('exciting', this)">高能剧情</button>
+          </div>
+
+          <div class="decision-display" id="decisionDisplay">
+            <div id="animeEmoji" style="font-size: 36px; margin-bottom: 6px;">🍳</div>
+            <div class="anime-title" id="animeTitle">迷宫饭</div>
+            <div class="anime-tags" id="animeTags">
+              <span class="anime-tag-item" style="background:#FEF08A;">美食探索</span>
+              <span class="anime-tag-item" style="background:#BBF7D0;">搞笑治愈</span>
+              <span class="anime-tag-item" style="background:#FED7AA;">脑洞大开</span>
+            </div>
+            <div class="anime-desc" id="animeDesc">
+              把地下城魔物做成顶尖料理！设定严谨又笑点密集，一口气看十几集根本停不下来，绝佳下饭神番。
+            </div>
+          </div>
+
+          <div class="control-row">
+            <button class="btn btn-primary" id="spinBtn" onclick="spinAnime()">
+              <span>🎲 随机抽取一部</span>
+            </button>
+            <button class="btn btn-secondary" onclick="copyAnimeShare()">
+              <span>📋 复制番名</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Memo -->
+      <div class="box">
+        <div class="box-header yellow">
+          <div class="box-title">📌 随手灵感与追剧备忘</div>
+          <span style="font-size: 11px; font-weight: 800;">自动存至本地</span>
+        </div>
+        <div class="box-body">
+          <textarea class="memo-area" id="memoInput" placeholder="写下接下来想追的剧、好听的歌，或者今天的闲暇小记..." oninput="saveMemo()"></textarea>
+          <div class="memo-status" id="memoStatus">已实时自动保存</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Lo-Fi Native Audio Synth -->
+    <div>
+      <div class="box">
+        <div class="box-header purple">
+          <div class="box-title">🎧 原生 Lo-Fi 白噪音合成器</div>
+          <span style="font-size: 11px; font-weight: 800; background:rgba(255,255,255,0.25); padding:2px 8px; border-radius:6px;">Web Audio 零延迟</span>
+        </div>
+        <div class="box-body">
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-weight: 600;">
+            无需联网或加载大体积音频，浏览器芯片原生合成白噪音与助眠音律：
+          </p>
+
+          <div class="sound-tracks">
+            <!-- Rain -->
+            <div class="track-card">
+              <div class="track-info">
+                <span class="track-icon">🌧️</span>
+                <span class="track-name">窗外细雨 (Rain)</span>
+              </div>
+              <div class="track-slider-wrap">
+                <input type="range" id="volRain" min="0" max="100" value="0" oninput="updateSound('rain', this.value)">
+                <span style="font-size: 12px; font-weight: 800; width: 32px;" id="valRain">0%</span>
+              </div>
+            </div>
+
+            <!-- Campfire -->
+            <div class="track-card">
+              <div class="track-info">
+                <span class="track-icon">🪵</span>
+                <span class="track-name">温暖营火 (Fire)</span>
+              </div>
+              <div class="track-slider-wrap">
+                <input type="range" id="volFire" min="0" max="100" value="0" oninput="updateSound('fire', this.value)">
+                <span style="font-size: 12px; font-weight: 800; width: 32px;" id="valFire">0%</span>
+              </div>
+            </div>
+
+            <!-- Summer Breeze -->
+            <div class="track-card">
+              <div class="track-info">
+                <span class="track-icon">🍃</span>
+                <span class="track-name">林间清风 (Wind)</span>
+              </div>
+              <div class="track-slider-wrap">
+                <input type="range" id="volWind" min="0" max="100" value="0" oninput="updateSound('wind', this.value)">
+                <span style="font-size: 12px; font-weight: 800; width: 32px;" id="valWind">0%</span>
+              </div>
+            </div>
+
+            <!-- Pink Noise / Cafe -->
+            <div class="track-card">
+              <div class="track-info">
+                <span class="track-icon">☕</span>
+                <span class="track-name">咖啡馆粉噪 (Cafe)</span>
+              </div>
+              <div class="track-slider-wrap">
+                <input type="range" id="volCafe" min="0" max="100" value="0" oninput="updateSound('cafe', this.value)">
+                <span style="font-size: 12px; font-weight: 800; width: 32px;" id="valCafe">0%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="master-sound-bar">
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="presetMix('study')">📖 专注模式</button>
+              <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="presetMix('sleep')">🌙 助眠模式</button>
+            </div>
+            <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px; background:#FEE2E2; color:#991B1B;" onclick="muteAll()">🔇 全部静音</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Tips Box -->
+      <div class="box">
+        <div class="box-header blue">
+          <div class="box-title">💡 休闲小贴士</div>
+        </div>
+        <div class="box-body" style="font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 600;">
+          • 下饭首选：《迷宫饭》《男子高中生的日常》<br>
+          • 治愈身心：《摇曳露营》《葬送的芙莉莲》<br>
+          • 纯音模式配合头戴式耳机效果更佳，随时关闭随时静默。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    ChillTime · 极简高饱和旅行插画风前端玩具 · 离线开箱即用
+  </footer>
+</div>
+
+<script>
+  // Anime Database
+  const animeList = [
+    { name: "迷宫饭", category: "funny", emoji: "🍳", tags: ["美食探索", "搞笑治愈", "脑洞"], desc: "把地下城魔物做成顶尖料理！设定严谨又笑点密集，一口气看十几集停不下来。" },
+    { name: "葬送的芙莉莲", category: "healing", emoji: "✨", tags: ["公路旅行", "细腻温情", "封神配乐"], desc: "千岁精灵重走勇者之路，时间长河里的细碎温情，后劲极强且画面顶级。" },
+    { name: "男子高中生的日常", category: "funny", emoji: "🍂", tags: ["无厘头", "满分吐槽", "青春下饭"], desc: "今天的风儿甚是喧嚣！男高的日常脑洞与极速吐槽，每一秒都是高能名场面。" },
+    { name: "间谍过家家", category: "funny", emoji: "🥜", tags: ["读心萌娃", "家庭喜剧", "轻松温馨"], desc: "特工爸爸 + 杀手妈妈 + 读心女儿阿尼亚的爆笑伪装日常，颜艺与温馨兼备。" },
+    { name: "摇曳露营△", category: "healing", emoji: "⛺", tags: ["户外露营", "温暖治愈", "究极放松"], desc: "富士山下的暖炉、热拉面与野营美景，工作一天后最舒服的心灵按摩番。" },
+    { name: "齐木楠雄的灾难", category: "funny", emoji: "☕", tags: ["超能力者", "超速吐槽", "爆笑神作"], desc: "只想当普通人的超能力高中生，却被一帮活宝同学天天找麻烦，语速极快笑料拉满。" },
+    { name: "孤独摇滚！", category: "healing", emoji: "🎸", tags: ["社恐少女", "热血乐队", "神仙作画"], desc: "社恐后藤一里的吉他英雄蜕变记，真实细腻又充满奇葩脑洞的青春摇滚喜剧。" },
+    { name: "日常 (Nichijou)", category: "funny", emoji: "🦌", tags: ["京阿尼", "神仙分镜", "脑洞爆炸"], desc: "校长摔跤斗鹿、三文鱼从天而降，荒诞艺术的最高境界，京阿尼作画巅峰。" },
+    { name: "坂本大佬有何贵干", category: "funny", emoji: "🕶️", tags: ["极致装逼", "优雅搞笑", "下饭必备"], desc: "无论遇到什么状况都能优雅装逼化解，逼格满满的爆笑校园番。" },
+    { name: "夏目友人帐", category: "healing", emoji: "🐱", tags: ["人妖温情", "唯美治愈", "猫咪老师"], desc: "温柔的少年与可爱的妖怪们，每一集都如同一首舒缓动听的散文诗。" },
+    { name: "死亡笔记", category: "exciting", emoji: "🍎", tags: ["顶级智斗", "悬疑高能", "节奏紧凑"], desc: "夜神月与 L 的世纪天才心理对决，剧情层层反转，紧张到手心出汗。" },
+    { name: "排球少年！！", category: "exciting", emoji: "🏐", tags: ["纯粹热血", "群像巅峰", "无超能力"], desc: "没有超能力、没有反派，只有纯粹热血与汗水的青春，每一场比赛都燃到起飞！" }
+  ];
+
+  let currentCategory = 'all';
+
+  function setCategory(cat, btn) {
+    currentCategory = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    spinAnime();
+  }
+
+  function spinAnime() {
+    const filtered = currentCategory === 'all' 
+      ? animeList 
+      : animeList.filter(a => a.category === currentCategory);
+    
+    if (!filtered.length) return;
+
+    const titleEl = document.getElementById('animeTitle');
+    const descEl = document.getElementById('animeDesc');
+    const tagsEl = document.getElementById('animeTags');
+    const emojiEl = document.getElementById('animeEmoji');
+    const spinBtn = document.getElementById('spinBtn');
+
+    titleEl.classList.add('rolling');
+    spinBtn.disabled = true;
+
+    let counter = 0;
+    const interval = setInterval(() => {
+      const temp = filtered[Math.floor(Math.random() * filtered.length)];
+      titleEl.innerText = temp.name;
+      emojiEl.innerText = temp.emoji;
+      counter++;
+      if (counter > 8) {
+        clearInterval(interval);
+        const finalPick = filtered[Math.floor(Math.random() * filtered.length)];
+        titleEl.innerText = finalPick.name;
+        titleEl.classList.remove('rolling');
+        emojiEl.innerText = finalPick.emoji;
+        descEl.innerText = finalPick.desc;
+        
+        tagsEl.innerHTML = finalPick.tags.map((t, idx) => {
+          const colors = ['#FEF08A', '#BBF7D0', '#FED7AA', '#E9D5FF', '#BAE6FD'];
+          return `<span class="anime-tag-item" style="background:${colors[idx % colors.length]};">${t}</span>`;
+        }).join('');
+
+        spinBtn.disabled = false;
+      }
+    }, 60);
+  }
+
+  function copyAnimeShare() {
+    const name = document.getElementById('animeTitle').innerText;
+    navigator.clipboard.writeText(`《${name}》`).then(() => {
+      alert(`已复制番剧名：《${name}》`);
+    });
+  }
+
+  // Local Memo Management
+  function saveMemo() {
+    const text = document.getElementById('memoInput').value;
+    localStorage.setItem('chill-user-memo', text);
+    const statusEl = document.getElementById('memoStatus');
+    statusEl.innerText = "已于 " + new Date().toLocaleTimeString() + " 自动保存";
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('chill-user-memo');
+    if (saved) {
+      document.getElementById('memoInput').value = saved;
+    }
+  });
+
+  // Web Audio Native Synthesizer
+  let audioCtx = null;
+  const nodes = {
+    rain: null,
+    fire: null,
+    wind: null,
+    cafe: null
+  };
+
+  function initAudioContext() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  // Generate White Noise Buffer
+  function createWhiteNoiseBuffer(seconds = 5) {
+    const bufferSize = audioCtx.sampleRate * seconds;
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    return buffer;
+  }
+
+  // Generate Pink Noise Buffer (Softer)
+  function createPinkNoiseBuffer(seconds = 5) {
+    const bufferSize = audioCtx.sampleRate * seconds;
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99886 * b0 + white * 0.0555179;
+      b1 = 0.99332 * b1 + white * 0.0750759;
+      b2 = 0.96900 * b2 + white * 0.1538520;
+      b3 = 0.86650 * b3 + white * 0.3104856;
+      b4 = 0.55000 * b4 + white * 0.5329522;
+      b5 = -0.7616 * b5 - white * 0.0168980;
+      data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+      b6 = white * 0.115926;
+    }
+    return buffer;
+  }
+
+  function getOrCreateTrackNode(type) {
+    initAudioContext();
+    if (nodes[type]) return nodes[type];
+
+    const gainNode = audioCtx.createGain();
+    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+
+    if (type === 'rain') {
+      const src = audioCtx.createBufferSource();
+      src.buffer = createPinkNoiseBuffer(6);
+      src.loop = true;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 1000;
+      src.connect(filter);
+      filter.connect(gainNode);
+      src.start();
+    } else if (type === 'wind') {
+      const src = audioCtx.createBufferSource();
+      src.buffer = createPinkNoiseBuffer(6);
+      src.loop = true;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 450;
+      filter.Q.value = 3.0;
+      src.connect(filter);
+      filter.connect(gainNode);
+      src.start();
+    } else if (type === 'fire') {
+      const src = audioCtx.createBufferSource();
+      src.buffer = createWhiteNoiseBuffer(4);
+      src.loop = true;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 600;
+      src.connect(filter);
+      filter.connect(gainNode);
+      src.start();
+    } else if (type === 'cafe') {
+      const src = audioCtx.createBufferSource();
+      src.buffer = createPinkNoiseBuffer(5);
+      src.loop = true;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 400;
+      src.connect(filter);
+      filter.connect(gainNode);
+      src.start();
+    }
+
+    gainNode.connect(audioCtx.destination);
+    nodes[type] = gainNode;
+    return gainNode;
+  }
+
+  function updateSound(type, val) {
+    const gain = getOrCreateTrackNode(type);
+    const volume = parseFloat(val) / 100;
+    gain.gain.setTargetAtTime(volume * 0.7, audioCtx.currentTime, 0.05);
+
+    const map = { rain: 'valRain', fire: 'valFire', wind: 'valWind', cafe: 'valCafe' };
+    if (map[type]) {
+      document.getElementById(map[type]).innerText = val + '%';
+    }
+  }
+
+  function presetMix(mode) {
+    initAudioContext();
+    if (mode === 'study') {
+      setSlider('volRain', 45, 'rain');
+      setSlider('volWind', 20, 'wind');
+      setSlider('volCafe', 25, 'cafe');
+      setSlider('volFire', 0, 'fire');
+    } else if (mode === 'sleep') {
+      setSlider('volRain', 60, 'rain');
+      setSlider('volFire', 30, 'fire');
+      setSlider('volWind', 0, 'wind');
+      setSlider('volCafe', 0, 'cafe');
+    }
+  }
+
+  function setSlider(id, val, type) {
+    document.getElementById(id).value = val;
+    updateSound(type, val);
+  }
+
+  function muteAll() {
+    setSlider('volRain', 0, 'rain');
+    setSlider('volFire', 0, 'fire');
+    setSlider('volWind', 0, 'wind');
+    setSlider('volCafe', 0, 'cafe');
+  }
+</script>
+</body>
+</html>
