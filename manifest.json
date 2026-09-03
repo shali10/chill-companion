@@ -1,0 +1,25 @@
+{
+  "name": "ChillTime | 闲暇伴侣",
+  "short_name": "ChillTime",
+  "description": "全景下饭剧集决策 & 原生 Lo-Fi 白噪音合成器",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F4F7F2",
+  "theme_color": "#2EC4B6",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

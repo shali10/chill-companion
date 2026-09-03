@@ -7,6 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+  <!-- PWA & Mobile Web App Meta -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2EC4B6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ChillTime">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <style>
     :root {
       --bg-main: #F4F7F2;
@@ -36,7 +43,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans SC', system-ui, -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     }
 
     body {
@@ -493,24 +500,52 @@
     }
 
     .breath-circle {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: var(--poster-green);
-      border: 2px solid var(--border-dark);
+      border: 2.5px solid var(--border-dark);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
       font-weight: 900;
       color: #fff;
-      animation: breathPulse 8s infinite ease-in-out;
+      animation: breathPulse12s 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 2px 2px 0 var(--shadow-color);
+      user-select: none;
+      transition: background-color 0.4s ease;
     }
 
-    @keyframes breathPulse {
-      0%, 100% { transform: scale(0.85); background: #2EC4B6; }
-      50% { transform: scale(1.18); background: #3A86FF; }
+    @keyframes breathPulse12s {
+      /* 0s - 4s: 吸气膨胀 (0% - 33.3%) */
+      0% {
+        transform: scale(0.85);
+        background: #2EC4B6;
+        box-shadow: 2px 2px 0 var(--shadow-color);
+      }
+      33.3% {
+        transform: scale(1.22);
+        background: #3A86FF;
+        box-shadow: 0 0 14px rgba(58, 134, 255, 0.5), 2px 2px 0 var(--shadow-color);
+      }
+      /* 4s - 8s: 屏息定格 (33.3% - 66.6%) */
+      50% {
+        transform: scale(1.22);
+        background: #8338EC;
+        box-shadow: 0 0 16px rgba(131, 56, 236, 0.55), 2px 2px 0 var(--shadow-color);
+      }
+      66.6% {
+        transform: scale(1.22);
+        background: #3A86FF;
+        box-shadow: 0 0 14px rgba(58, 134, 255, 0.5), 2px 2px 0 var(--shadow-color);
+      }
+      /* 8s - 12s: 呼气收缩 (66.6% - 100%) */
+      100% {
+        transform: scale(0.85);
+        background: #2EC4B6;
+        box-shadow: 2px 2px 0 var(--shadow-color);
+      }
     }
 
     /* Memo Area */
@@ -628,8 +663,8 @@
             <button class="btn btn-primary" id="spinBtn" onclick="spinAnime()">
               <span>🎲 随机抽一部</span>
             </button>
-            <button class="btn btn-secondary" onclick="copyAnimeShare()">
-              <span>📋 复制剧名</span>
+            <button class="btn btn-secondary" onclick="shareOrCopyAnime()">
+              <span>📤 分享卡片</span>
             </button>
             <button class="btn btn-fav" onclick="addToMyListFromCurrent()" title="加入我的片单">
               <span>⭐ 收藏此部</span>
@@ -642,7 +677,11 @@
       <div class="box">
         <div class="box-header dark-green">
           <div class="box-title">📑 我的专属片单与自选库</div>
-          <span style="font-size: 11px; font-weight: 800;">LocalStorage 本地保存</span>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <button class="btn btn-secondary" style="padding:3px 8px; font-size:11px; border-radius:6px; box-shadow:1.5px 1.5px 0 var(--shadow-color);" onclick="exportWatchlist()" title="导出 JSON 备份">📤 备份</button>
+            <button class="btn btn-secondary" style="padding:3px 8px; font-size:11px; border-radius:6px; box-shadow:1.5px 1.5px 0 var(--shadow-color);" onclick="document.getElementById('importFileInput').click()" title="从 JSON 导入">📥 恢复</button>
+            <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="importWatchlist(event)">
+          </div>
         </div>
         <div class="box-body">
           <div class="watchlist-input-row">
@@ -757,9 +796,9 @@
           <div class="breath-box">
             <div>
               <div style="font-size:13px; font-weight:800; color:#14532D;">🌿 4-4-4 放松深呼吸</div>
-              <div style="font-size:11px; font-weight:700; color:#166534; margin-top:2px;">跟随光晕：吸气 · 屏息 · 呼气</div>
+              <div style="font-size:11px; font-weight:700; color:#166534; margin-top:2px;" id="breathSubText">吸气 (4s) · 缓缓吸入清润晚风</div>
             </div>
-            <div class="breath-circle">呼 / 吸</div>
+            <div class="breath-circle" id="breathCircle">吸 气</div>
           </div>
         </div>
       </div>
@@ -844,6 +883,9 @@
     loadMemo();
     updatePoolBadge();
     renderWatchlist();
+    setupAudioGestureUnlock();
+    initBreathGuide();
+    registerServiceWorker();
   });
 
   function updatePoolBadge() {
@@ -951,11 +993,101 @@
     document.getElementById('googleLink').href = `https://www.google.com/search?q=${encoded}+在线看`;
   }
 
-  function copyAnimeShare() {
-    const name = document.getElementById('animeTitle').innerText;
-    navigator.clipboard.writeText(`《${name}》`).then(() => {
-      alert(`已复制剧名：《${name}》`);
-    });
+  function shareOrCopyAnime() {
+    const title = document.getElementById('animeTitle').innerText;
+    const desc = document.getElementById('animeDesc').innerText;
+    if (!title || title === "暂无条目") return;
+
+    const shareText = `🍜 我在 ChillTime 抽到了绝佳下饭剧《${title}》！\n\n💡 推荐理由：${desc}\n🔗 在线体验：https://chill-companion.pages.dev`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: `ChillTime 闲暇伴侣 · 《${title}》`,
+        text: shareText,
+        url: 'https://chill-companion.pages.dev'
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(shareText).then(() => {
+        alert(`已复制精美安利卡片至剪贴板！可以直接粘贴给朋友～\n\n《${title}》`);
+      });
+    }
+  }
+
+  // Watchlist JSON Export & Import
+  function exportWatchlist() {
+    if (!customList.length) {
+      alert("当前专属片单为空，先添加几部心仪剧目再备份吧～");
+      return;
+    }
+    const backupData = {
+      version: "2.1",
+      exported_at: new Date().toISOString(),
+      watchlist: customList,
+      memo: localStorage.getItem('chill-user-memo') || ""
+    };
+    const jsonStr = JSON.stringify(backupData, null, 2);
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const dateStr = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `chilltime-watchlist-backup-${dateStr}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function importWatchlist(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const imported = JSON.parse(e.target.result);
+        const list = Array.isArray(imported) ? imported : (imported.watchlist || []);
+        if (!Array.isArray(list) || !list.length) {
+          alert("导入失败：未在文件中找到有效的片单数据！");
+          return;
+        }
+
+        const choice = confirm(`发现 ${list.length} 条剧目备份：\n\n点击 [确定]：与现有片单合并（自动去重）\n点击 [取消]：完全覆盖当前片单`);
+        
+        if (choice) {
+          // 合并去重
+          const existingNames = new Set(customList.map(item => item.name));
+          let addCount = 0;
+          list.forEach(item => {
+            if (item && item.name && !existingNames.has(item.name)) {
+              customList.push({ name: item.name, watched: Boolean(item.watched) });
+              existingNames.add(item.name);
+              addCount++;
+            }
+          });
+          alert(`合并成功！新增 ${addCount} 部剧目`);
+        } else {
+          // 覆盖
+          customList = list.map(item => ({
+            name: String(item.name || "").trim(),
+            watched: Boolean(item.watched)
+          })).filter(item => item.name);
+          alert(`覆盖成功！当前共有 ${customList.length} 部剧目`);
+        }
+
+        if (imported.memo && confirm("备份中包含便签内容，是否同时恢复便签？")) {
+          localStorage.setItem('chill-user-memo', imported.memo);
+          loadMemo();
+        }
+
+        saveCustomList();
+      } catch (err) {
+        alert("导入解析出错，请确保上传的是正确的 JSON 备份文件！");
+      } finally {
+        event.target.value = "";
+      }
+    };
+    reader.readAsText(file);
   }
 
   function addToMyListFromCurrent() {
@@ -1044,7 +1176,9 @@
     document.getElementById('memoStatus').innerText = "已于 " + new Date().toLocaleTimeString() + " 自动保存";
   }
 
-  // Web Audio Native Synthesizer (6 Tracks + SFX)
+  // ==========================================================
+  // Web Audio Native Synthesizer (6 Tracks + SFX + LifeCycle)
+  // ==========================================================
   let audioCtx = null;
   const nodes = {
     rain: null,
@@ -1055,18 +1189,62 @@
     cafe: null
   };
 
+  // 全局手势唤醒监听（完美兼容 iOS Safari 与移动端策略）
+  function setupAudioGestureUnlock() {
+    const unlock = () => {
+      if (audioCtx && audioCtx.state === 'suspended') {
+        const hasActiveTracks = hasAnyActiveSound();
+        if (hasActiveTracks) {
+          audioCtx.resume();
+        }
+      }
+    };
+    document.addEventListener('touchstart', unlock, { passive: true });
+    document.addEventListener('click', unlock, { passive: true });
+  }
+
   function initAudioContext() {
     if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        audioCtx = new AudioContextClass();
+      }
     }
-    if (audioCtx.state === 'suspended') {
+    if (audioCtx && audioCtx.state === 'suspended') {
       audioCtx.resume();
     }
+  }
+
+  function hasAnyActiveSound() {
+    return ['volRain', 'volFire', 'volOcean', 'volWind', 'volNight', 'volCafe'].some(id => {
+      const el = document.getElementById(id);
+      return el && parseFloat(el.value) > 0;
+    });
+  }
+
+  function checkAudioPowerState() {
+    if (!audioCtx) return;
+    const active = hasAnyActiveSound();
+    // 全静音时主动休眠声卡，将 CPU 消耗降为 0；有音轨时自动恢复
+    if (!active && audioCtx.state === 'running') {
+      audioCtx.suspend().catch(() => {});
+    } else if (active && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(() => {});
+    }
+  }
+
+  function triggerHaptic(type = 'light') {
+    if (!navigator.vibrate) return;
+    try {
+      if (type === 'light') navigator.vibrate(10);
+      else if (type === 'win') navigator.vibrate([25, 40, 60]);
+    } catch(e) {}
   }
 
   function playTickSound() {
     try {
       initAudioContext();
+      triggerHaptic('light');
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'triangle';
@@ -1077,12 +1255,20 @@
       gain.connect(audioCtx.destination);
       osc.start();
       osc.stop(audioCtx.currentTime + 0.05);
+
+      // 短音效播放完毕后，若无常驻背景音，100ms 后休眠声卡节能
+      setTimeout(() => {
+        if (!hasAnyActiveSound() && audioCtx && audioCtx.state === 'running') {
+          audioCtx.suspend().catch(() => {});
+        }
+      }, 100);
     } catch(e){}
   }
 
   function playWinSound() {
     try {
       initAudioContext();
+      triggerHaptic('win');
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
@@ -1094,6 +1280,12 @@
       gain.connect(audioCtx.destination);
       osc.start();
       osc.stop(audioCtx.currentTime + 0.26);
+
+      setTimeout(() => {
+        if (!hasAnyActiveSound() && audioCtx && audioCtx.state === 'running') {
+          audioCtx.suspend().catch(() => {});
+        }
+      }, 350);
     } catch(e){}
   }
 
@@ -1104,7 +1296,7 @@
 
     if (type === 'white') {
       for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-    } else { // Pink Noise
+    } else { // Pink Noise (Paul Kellet's filter)
       let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0;
       for (let i = 0; i < bufferSize; i++) {
         const white = Math.random() * 2 - 1;
@@ -1208,14 +1400,20 @@
   }
 
   function updateSound(type, val) {
+    const num = parseFloat(val);
+    if (num > 0) {
+      initAudioContext();
+    }
     const gain = getOrCreateTrackNode(type);
-    const volume = parseFloat(val) / 100;
+    const volume = num / 100;
     gain.gain.setTargetAtTime(volume * 0.7, audioCtx.currentTime, 0.05);
 
     const map = { rain: 'valRain', fire: 'valFire', ocean: 'valOcean', wind: 'valWind', night: 'valNight', cafe: 'valCafe' };
     if (map[type]) {
       document.getElementById(map[type]).innerText = val + '%';
     }
+
+    checkAudioPowerState();
   }
 
   function presetMix(mode) {
@@ -1234,6 +1432,7 @@
       setSlider('volFire', 30, 'fire');
       setSlider('volNight', 15, 'night');
     }
+    checkAudioPowerState();
   }
 
   function setSlider(id, val, type) {
@@ -1247,6 +1446,41 @@
       document.getElementById(id).value = 0;
       updateSound(type, 0);
     });
+    if (audioCtx && audioCtx.state === 'running') {
+      audioCtx.suspend().catch(() => {});
+    }
+  }
+
+  // 4-4-4 呼吸节奏联动循环 (12s 周期: 4s 吸气 -> 4s 屏息 -> 4s 呼气)
+  function initBreathGuide() {
+    const circle = document.getElementById('breathCircle');
+    const sub = document.getElementById('breathSubText');
+    if (!circle) return;
+
+    const stages = [
+      { text: "吸 气", sub: "吸气 (4s) · 缓缓吸入清润晚风", duration: 4000 },
+      { text: "屏 息", sub: "屏息 (4s) · 保持平静与思绪定格", duration: 4000 },
+      { text: "呼 气", sub: "呼气 (4s) · 缓慢均匀地吐纳释怀", duration: 4000 }
+    ];
+    let idx = 0;
+
+    function step() {
+      circle.innerText = stages[idx].text;
+      if (sub) sub.innerText = stages[idx].sub;
+      const d = stages[idx].duration;
+      idx = (idx + 1) % stages.length;
+      setTimeout(step, d);
+    }
+    step();
+  }
+
+  // PWA Service Worker 注册
+  function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
   }
 </script>
 </body>
