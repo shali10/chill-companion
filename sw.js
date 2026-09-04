@@ -1,11 +1,17 @@
-// ChillTime PWA Service Worker
-const CACHE_NAME = 'chilltime-cache-v2.1';
+// ChillTime PWA Service Worker v2.2
+const CACHE_NAME = 'chilltime-cache-v2.2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './audio/greeting_morning.mp3',
+  './audio/greeting_noon.mp3',
+  './audio/greeting_afternoon.mp3',
+  './audio/greeting_night.mp3',
+  './audio/spin_cheer.mp3',
+  './audio/breathe_guide.mp3'
 ];
 
 self.addEventListener('install', (event) => {
