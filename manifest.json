@@ -1,7 +1,7 @@
 {
-  "name": "ChillTime | 闲暇伴侣",
+  "name": "ChillTime | 闲暇伴侣 v2.3",
   "short_name": "ChillTime",
-  "description": "全景下饭剧集决策 & 原生 Lo-Fi 白噪音合成器",
+  "description": "52+ 全景下饭剧集决策 & 原生 Lo-Fi 白噪音合成器",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

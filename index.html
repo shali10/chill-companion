@@ -730,10 +730,10 @@
   <!-- Header -->
   <header>
     <div class="brand">
-      <div class="brand-badge">CHILL v2.2</div>
+      <div class="brand-badge">CHILL v2.3</div>
       <div>
         <h1>闲暇伴侣 · 全景片单 & 纯音合成</h1>
-        <div class="tagline">40+ 经典神番/神剧决策轮盘 · 自定义片库 · 原生 6 轨 Lo-Fi 合成器 · Hermes 专属语音伴读</div>
+        <div class="tagline">52+ 经典神番/神剧决策轮盘 · 自定义片库 · 原生 6 轨 Lo-Fi 合成器 · Hermes 专属语音伴读</div>
       </div>
     </div>
     <div class="header-status">
@@ -754,7 +754,7 @@
       <div class="box">
         <div class="box-header green">
           <div class="box-title">🍜 全景下饭剧集随机器</div>
-          <span style="font-size: 12px; font-weight: 800; opacity: 0.9;" id="poolCountBadge">收录 40+ 部</span>
+          <span style="font-size: 12px; font-weight: 800; opacity: 0.9;" id="poolCountBadge">收录 52+ 部</span>
         </div>
         <div class="box-body">
           <!-- Scene Fast Matcher -->
@@ -800,6 +800,7 @@
           <div class="control-row">
             <button class="btn btn-primary" id="spinBtn" onclick="spinAnime()">
               <span>🎲 随机抽一部</span>
+              <span style="font-size: 10px; opacity: 0.85; margin-left: 4px; border: 1px solid rgba(255,255,255,0.4); padding: 1px 5px; border-radius: 4px; font-weight: 700;">Space</span>
             </button>
             <button class="btn btn-secondary" onclick="shareOrCopyAnime()">
               <span>📤 分享卡片</span>
@@ -974,7 +975,7 @@
   </div>
 
   <footer>
-    ChillTime v2.2 · Hermes 专属语音伴读版 · 高饱和旅行插画风闲暇伴侣 · Cloudflare Pages 边缘托管 · 零网络外部依赖
+    ChillTime v2.3 · Hermes 专属语音伴读版 · 52+ 全景片库 · 高饱和旅行插画风闲暇伴侣 · Cloudflare Pages 边缘托管 · 零网络外部依赖
   </footer>
 </div>
 
@@ -994,6 +995,9 @@
     { name: "游戏三人娘", category: "funny", emoji: "🎮", tags: ["神仙颜艺", "欺诈OP", "爆笑互坑"], desc: "OP欺诈巅峰！外表美少女，内心全是抽象暴躁颜艺狂魔，绝对笑出眼泪。" },
     { name: "小林家的龙女仆", category: "funny", emoji: "🐉", tags: ["京阿尼", "温馨搞笑", "龙女仆"], desc: "程序员小林与一群可爱的龙龙室友的同居温馨日常，画风可爱打斗顶配。" },
     { name: "月刊少女野崎君", category: "funny", emoji: "🎀", tags: ["少女漫画", "直男迟钝", "爆笑误会"], desc: "少女心爆棚的硬核直男漫画家野崎君，经典千代表情包发源地，百看不厌。" },
+    { name: "银魂", category: "funny", emoji: "🗡️", tags: ["掉节操", "吐槽鼻祖", "热血催泪"], desc: "节操掉光掉无可掉！无厘头恶搞与热血羁绊交织，前一秒笑出腹肌，后一秒热血沸腾。" },
+    { name: "瑞克和莫蒂 (Rick and Morty)", category: "funny", emoji: "🛸", tags: ["宇宙脑洞", "硬核科幻", "信息量爆炸"], desc: "天才疯批姥爷与怂包外孙的多元宇宙大冒险，脑洞大到击穿天灵盖，下饭必看神番。" },
+    { name: "后街女孩", category: "funny", emoji: "🎀", tags: ["黑帮偶像", "反差巨大", "腹肌撕裂"], desc: "做错事的黑帮三人组被迫转型成为美少女偶像出道！反差巨大、全程高能沙雕。" },
 
     // 治愈与公路片 (healing)
     { name: "葬送的芙莉莲", category: "healing", emoji: "✨", tags: ["公路旅行", "细腻温情", "封神配乐"], desc: "千岁精灵重走勇者之路，时间长河里的细碎温情与记忆，后劲极强且画面顶级。" },
@@ -1006,6 +1010,9 @@
     { name: "比宇宙更远的地方", category: "healing", emoji: "🐧", tags: ["南极挑战", "青春冒险", "豆瓣9.3"], desc: "四位少女跨越半个地球前往南极大陆，青春就该去看看未知的世界，满分神作！" },
     { name: "虫师", category: "healing", emoji: "🌿", tags: ["空灵幽远", "东方物语", "禅意哲思"], desc: "银古游历四方探寻生命的本质，每一话都是淡雅幽远的东方自然画卷。" },
     { name: "CLANNAD", category: "healing", emoji: "🍡", tags: ["人生神作", "感动泪目", "家族温情"], desc: "写作 CLANNAD，读作人生。探讨成长、责任与家庭，动漫史上不可逾越的经典。" },
+    { name: "轻音少女 (K-ON!)", category: "healing", emoji: "☕", tags: ["京阿尼", "喝茶吃点心", "治愈鼻祖"], desc: "放课后茶会的日常！喝茶、吃蛋糕、顺便玩音乐，京阿尼萌系与青春治愈巅峰。" },
+    { name: "元气囝仔", category: "healing", emoji: "🖌️", tags: ["海岛生活", "书法治愈", "天真童趣"], desc: "年轻书法家来到淳朴海岛，被一群活宝岛民和调皮小萝莉奈留治愈身心的悠闲故事。" },
+    { name: "少女终末旅行", category: "healing", emoji: "🪖", tags: ["废墟探索", "末世治愈", "平静哲思"], desc: "驾驶半履带摩托漫步在文明尽头的两个女孩，在苍凉世界里找寻生活微小的暖意。" },
 
     // 神作与高能剧情 (exciting)
     { name: "死亡笔记", category: "exciting", emoji: "🍎", tags: ["顶级智斗", "悬疑高能", "节奏紧凑"], desc: "夜神月与 L 的世纪天才心理对决，剧情层层反转，紧张到手心出汗。" },
@@ -1017,6 +1024,10 @@
     { name: "命运石之门", category: "exciting", emoji: "🔬", tags: ["世界线收束", "硬核科幻", "神级反转"], desc: "这一切都是命运石之门的选择！慢热但从第12集开始极速高能，神回不断。" },
     { name: "咒术回战", category: "exciting", emoji: "🤞", tags: ["领域展开", "顶配打戏", "MAPPA"], desc: "五条悟颜值与战力天花板，涉谷事变高能连环爆发，动作分镜张力十足。" },
     { name: "鬼灭之刃", category: "exciting", emoji: "🌊", tags: ["飞碟社", "呼吸法", "游郭大战"], desc: "ufotable 顶级光影与粒子特效，无限列车与游郭篇打斗燃炸全场。" },
+    { name: "赛博朋克：边缘行者", category: "exciting", emoji: "🌆", tags: ["扳机社", "夜之城传奇", "后劲极大"], desc: "“夜之城没有活着的传奇。” 扳机社顶配作画与视听张力，大卫与露西的月球之约，封神神作！" },
+    { name: "JOJO的奇妙冒险", category: "exciting", emoji: "🌟", tags: ["人类赞歌", "高能智斗", "梗王之王"], desc: "黄金精神与天马行空的替身智斗！名场面层出不穷，姿势与战力双重拉满。" },
+    { name: "天国大魔境", category: "exciting", emoji: "🔍", tags: ["双线叙事", "末世悬疑", "神级伏笔"], desc: "壁外废土世界与壁内温室学校的双线交织，伏笔与反转极其精巧，顶级悬疑大作。" },
+    { name: "无职转生", category: "exciting", emoji: "🪄", tags: ["异世界天花板", "神级制作", "人生重来"], desc: "作画、音乐、世界观构筑全方位的异世界动画天花板，在剑与魔法的世界重新活一次。" },
 
     // 经典下饭真人神剧 (drama)
     { name: "武林外传", category: "drama", emoji: "🍶", tags: ["同福客栈", "国民喜剧", "百看不厌"], desc: "“这世界有太多不如意，但你的生活还是要继续。” 佟掌柜、老白、秀才郭芙蓉，中国情景喜剧巅峰。" },
@@ -1026,7 +1037,10 @@
     { name: "孤独的美食家", category: "drama", emoji: "🥩", tags: ["井之头五郎", "日本街巷", "沉浸干饭"], desc: "不被时间与社会所束缚，幸福地填饱肚子！五郎叔的大叔吃相绝对是下饭神器。" },
     { name: "父母爱情", category: "drama", emoji: "🌸", tags: ["温情岁月", "细水长流", "百看不厌"], desc: "江德福与安杰相濡以沫的一生，生活化对白极其自然生动，最适合全家一起看。" },
     { name: "家有儿女", category: "drama", emoji: "🍦", tags: ["刘星名场面", "童年回忆", "轻松爆笑"], desc: "刘星下饭名场面大赏！重温小时候最纯粹的无厘头家庭快乐。" },
-    { name: "IT狂人 (The IT Crowd)", category: "drama", emoji: "💻", tags: ["英式幽默", "极客无厘头", "满分神剧"], desc: "“Have you tried turning it off and on again?” 程序员与 IT 部门的经典荒诞英剧。" }
+    { name: "IT狂人 (The IT Crowd)", category: "drama", emoji: "💻", tags: ["英式幽默", "极客无厘头", "满分神剧"], desc: "“Have you tried turning it off and on again?” 程序员与 IT 部门的经典荒诞英剧。" },
+    { name: "漫长的季节", category: "drama", emoji: "🌽", tags: ["辛爽导演", "时代悲歌", "豆瓣9.4"], desc: "“往前看，别回头。” 范伟、秦昊主演，把悬疑与生活写进骨髓里的国产剧巅峰。" },
+    { name: "风骚律师 (Better Call Saul)", category: "drama", emoji: "⚖️", tags: ["绝命毒师前传", "封神群像", "教科书演技"], desc: "吉米·麦吉尔如何蜕变为索尔·古德曼，镜头、剧本与心理刻画无可挑剔的剧王。" },
+    { name: "舌尖上的中国 (第一季)", category: "drama", emoji: "🥢", tags: ["中华美食", "人间烟火", "顶级下饭"], desc: "中国最顶级的下饭纪录片！每一帧食材的翻滚与人文故事，都让人馋到想立刻干饭。" },
   ];
 
   let currentCategory = 'all';
@@ -1041,8 +1055,20 @@
     renderWatchlist();
     setupAudioGestureUnlock();
     initBreathGuide();
+    setupKeyboardShortcuts();
     registerServiceWorker();
   });
+
+  function setupKeyboardShortcuts() {
+    window.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+      if (e.code === 'Space') {
+        e.preventDefault();
+        const spinBtn = document.getElementById('spinBtn');
+        if (spinBtn && !spinBtn.disabled) spinAnime();
+      }
+    });
+  }
 
   function updatePoolBadge() {
     const customCount = customList.length;
